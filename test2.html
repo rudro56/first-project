@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Rounak ❤️</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Georgia", "Times New Roman", serif;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.08), transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,0.06), transparent 25%),
+        linear-gradient(135deg, #180d18, #30152b, #160b18);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* ---------- BACKGROUND ---------- */
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% {
+        opacity: 0.15;
+        transform: scale(0.7);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.4);
+      }
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -30px;
+      color: rgba(255, 174, 202, 0.5);
+      font-size: 18px;
+      pointer-events: none;
+      animation: floatHeart linear forwards;
+      z-index: 1;
+    }
+
+    @keyframes floatHeart {
+      from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+      15% {
+        opacity: 0.8;
+      }
+      to {
+        transform: translateY(-110vh) rotate(25deg);
+        opacity: 0;
+      }
+    }
+
+    /* ---------- MAIN ---------- */
+
+    .container {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+    }
+
+    .screen {
+      width: 100%;
+      max-width: 720px;
+      text-align: center;
+      display: none;
+      animation: fadeIn 0.8s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-size: clamp(2rem, 7vw, 4rem);
+      font-weight: normal;
+      margin-bottom: 20px;
+      color: #ffe8ef;
+    }
+
+    h2 {
+      font-size: clamp(1.7rem, 5vw, 2.5rem);
+      font-weight: normal;
+      margin-bottom: 25px;
+      color: #ffdce7;
+    }
+
+    p {
+      font-family: "Georgia", serif;
+      font-size: 1.08rem;
+      line-height: 1.9;
+      color: #f6e9ed;
+    }
+
+    .small-text {
+      font-family: Arial, sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #dcaebe;
+      margin-bottom: 18px;
+    }
+
+    /* ---------- BUTTON ---------- */
+
+    .btn {
+      margin-top: 35px;
+      padding: 13px 28px;
+      border: 1px solid rgba(255, 210, 225, 0.5);
+      border-radius: 30px;
+      background: rgba(255,255,255,0.07);
+      color: #ffeaf0;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn:hover {
+      background: rgba(255, 190, 210, 0.18);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(255, 100, 150, 0.15);
+    }
+
+    /* ---------- ENVELOPE ---------- */
+
+    .envelope-wrapper {
+      margin: 45px auto 20px;
+      width: 280px;
+      height: 190px;
+      position: relative;
+      cursor: pointer;
+      perspective: 800px;
+    }
+
+    .envelope {
+      position: absolute;
+      inset: 0;
+      background: #d995aa;
+      border-radius: 8px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    }
+
+    .envelope::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-left: 140px solid transparent;
+      border-right: 140px solid transparent;
+      border-top: 105px solid #efb2c3;
+      transform-origin: top;
+      transition: 0.7s ease;
+      z-index: 3;
+    }
+
+    .envelope::after {
+      content: "♥";
+      position: absolute;
+      top: 76px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 35px;
+      color: #fff1f5;
+      z-index: 4;
+    }
+
+    .envelope.open::before {
+      transform: rotateX(180deg);
+      z-index: 0;
+    }
+
+    .envelope.open::after {
+      opacity: 0;
+    }
+
+    .envelope-label {
+      margin-top: 20px;
+      color: #e9bdca;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    /* ---------- LETTER CARD ---------- */
+
+    .letter-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,220,230,0.16);
+      border-radius: 18px;
+      padding: 35px;
+      text-align: left;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 25px 70px rgba(0,0,0,0.25);
+    }
+
+    .letter-card p {
+      margin-bottom: 18px;
+    }
+
+    .signature {
+      margin-top: 30px;
+      text-align: right;
+      color: #ffcbd9;
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+
+    /* ---------- MEMORY CARDS ---------- */
+
+    .memory-container {
+      display: grid;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .memory {
+      padding: 22px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,220,230,0.1);
+      text-align: left;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .memory.show {
+      animation: memoryAppear 0.7s forwards;
+    }
+
+    @keyframes memoryAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .memory span {
+      display: block;
+      color: #ffb8cb;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    /* ---------- FINAL ---------- */
+
+    .final-heart {
+      font-size: 70px;
+      animation: heartbeat 1.5s infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% {
+        transform: scale(1);
+      }
+      15% {
+        transform: scale(1.15);
+      }
+      30% {
+        transform: scale(1);
+      }
+      45% {
+        transform: scale(1.1);
+      }
+    }
+
+    .typing {
+      min-height: 150px;
+      white-space: pre-line;
+    }
+
+    .ending {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      color: #ffe1e9;
+    }
+
+    /* ---------- MUSIC BUTTON ---------- */
+
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: white;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    /* ---------- MOBILE ---------- */
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 18px;
+      }
+
+      .letter-card {
+        padding: 24px;
+      }
+
+      p {
+        font-size: 1rem;
+        line-height: 1.8;
+      }
+
+      .envelope-wrapper {
+        transform: scale(0.85);
+        margin-top: 30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Optional music button -->
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">♪</button>
+
+  <audio id="music" loop>
+    <!--
+      OPTIONAL:
+      Put your own romantic instrumental MP3 in the same folder
+      and change the line below to:
+      src="music.mp3"
+    -->
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <main class="container">
+
+    <!-- SCREEN 1 -->
+    <section class="screen active" id="screen1">
+
+      <div class="small-text">A little something for you</div>
+
+      <h1>Hey, Rounak ❤️</h1>
+
+      <p>
+        I could have just sent you a message...
+        <br>
+        but somehow, that didn't feel special enough.
+      </p>
+
+      <div class="envelope-wrapper" onclick="openEnvelope()">
+        <div class="envelope" id="envelope"></div>
+      </div>
+
+      <div class="envelope-label">
+        Tap the envelope
+      </div>
+
+    </section>
+
+
+    <!-- SCREEN 2 -->
+    <section class="screen" id="screen2">
+
+      <div class="small-text">Step 01</div>
+
+      <h2>Before you read this...</h2>
+
+      <p>
+        Don't expect anything complicated.
+        <br><br>
+        It's just a few thoughts from my heart,
+        written for one particular person.
+        <br><br>
+        You.
+      </p>
+
+      <button class="btn" onclick="nextScreen(3)">
+        Continue ♡
+      </button>
+
+    </section>
+
+
+    <!-- SCREEN 3 -->
+    <section class="screen" id="screen3">
+
+      <div class="small-text">Step 02</div>
+
+      <h2>Do you know what I like?</h2>
+
+      <div class="memory-container">
+
+        <div class="memory">
+          <span>♡</span>
+          The little conversations that somehow become much longer than we planned.
+        </div>
+
+        <div class="memory">
+          <span>☾</span>
+          The random moments that don't look important to anyone else,
+          but somehow stay in my mind.
+        </div>
+
+        <div class="memory">
+          <span>✦</span>
+          And simply knowing that somewhere in this huge world,
+          there is a person named Rounak who means a lot to me.
+        </div>
+
+      </div>
+
+      <button class="btn" onclick="nextScreen(4)">
+        There's more...
+      </button>
+
+    </section>
+
+
+    <!-- SCREEN 4 -->
+    <section class="screen" id="screen4">
+
+      <div class="small-text">Step 03</div>
+
+      <h2>Something I don't always say</h2>
+
+      <div class="letter-card">
+
+        <p>
+          Rounak,
+        </p>
+
+        <p>
+          Sometimes I don't know how to properly explain what you mean to me.
+          I may not always say the right thing, and I may not always know
+          how to put my feelings into words.
+        </p>
+
+        <p>
+          But I want you to know that having you in my life has given
+          so many ordinary days a little more meaning.
+        </p>
+
+        <p>
+          It's not about perfect moments.
+          It's about the small things — talking, laughing,
+          being silly, sharing things, and simply knowing that you're there.
+        </p>
+
+      </div>
+
+      <button class="btn" onclick="nextScreen(5)">
+        One last thing...
+      </button>
+
+    </section>
+
+
+    <!-- SCREEN 5 -->
+    <section class="screen" id="screen5">
+
+      <div class="small-text">Step 04</div>
+
+      <div class="final-heart">♥</div>
+
+      <h2>For you, Rounak</h2>
+
+      <div class="letter-card">
+
+        <div class="typing" id="typingText"></div>
+
+        <div class="signature">
+          — Someone who cares about you deeply ❤️
+        </div>
+
+      </div>
+
+      <button class="btn" onclick="nextScreen(6)">
+        Keep going...
+      </button>
+
+    </section>
+
+
+    <!-- SCREEN 6 -->
+    <section class="screen" id="screen6">
+
+      <div class="small-text">The last page</div>
+
+      <h1>Thank you, Rounak.</h1>
+
+      <p class="ending">
+        Thank you for being a part of my life.
+        <br><br>
+
+        I don't know what every tomorrow will look like,
+        but I know that the moments we have shared
+        will always have a special place in my heart.
+        <br><br>
+
+        And if you ever forget how special you are,
+        come back to this little letter.
+        <br><br>
+
+        Because I meant every word.
+      </p>
+
+      <div style="margin-top:35px; font-size:28px;">
+        ♡ &nbsp; 🌙 &nbsp; ♡
+      </div>
+
+      <button class="btn" onclick="restart()">
+        Read it again
+      </button>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    /* =========================
+       CREATE BACKGROUND STARS
+    ========================= */
+
+    const starsContainer = document.getElementById("stars");
+
+    for (let i = 0; i < 80; i++) {
+
+      const star = document.createElement("div");
+
+      star.classList.add("star");
+
+      star.style.left = Math.random() * 100 + "%";
+      star.style.top = Math.random() * 100 + "%";
+
+      star.style.animationDelay =
+        Math.random() * 3 + "s";
+
+      star.style.opacity =
+        Math.random();
+
+      starsContainer.appendChild(star);
+    }
+
+
+    /* =========================
+       FLOATING HEARTS
+    ========================= */
+
+    function createHeart() {
+
+      const heart = document.createElement("div");
+
+      heart.classList.add("heart");
+
+      heart.innerHTML = Math.random() > 0.5 ? "♥" : "♡";
+
+      heart.style.left =
+        Math.random() * 100 + "vw";
+
+      heart.style.fontSize =
+        (12 + Math.random() * 20) + "px";
+
+      heart.style.animationDuration =
+        (6 + Math.random() * 7) + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 14000);
+    }
+
+    setInterval(createHeart, 1400);
+
+
+    /* =========================
+       SCREEN NAVIGATION
+    ========================= */
+
+    function nextScreen(number) {
+
+      document.querySelectorAll(".screen")
+        .forEach(screen => {
+          screen.classList.remove("active");
+        });
+
+      const next =
+        document.getElementById("screen" + number);
+
+      next.classList.add("active");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+      if (number === 3) {
+        animateMemories();
+      }
+
+      if (number === 5) {
+        startTyping();
+      }
+    }
+
+
+    /* =========================
+       OPEN ENVELOPE
+    ========================= */
+
+    function openEnvelope() {
+
+      const envelope =
+        document.getElementById("envelope");
+
+      envelope.classList.add("open");
+
+      setTimeout(() => {
+        nextScreen(2);
+      }, 1000);
+    }
+
+
+    /* =========================
+       MEMORY ANIMATION
+    ========================= */
+
+    function animateMemories() {
+
+      const memories =
+        document.querySelectorAll(".memory");
+
+      memories.forEach((memory, index) => {
+
+        memory.classList.remove("show");
+
+        setTimeout(() => {
+          memory.classList.add("show");
+        }, index * 700);
+
+      });
+    }
+
+
+    /* =========================
+       TYPING EFFECT
+    ========================= */
+
+    const letterText = `
+Rounak,
+
+If you're reading this, I just want you to pause for a moment.
+
+There are probably a thousand better ways I could have said all of this, but I wanted to make something myself — something small, something you could keep.
+
+You are important to me.
+
+Not because of one particular reason, but because of all the little things that make you... you.
+
+Your presence, your way of talking, the random things we share, the moments we laugh about — all of those little pieces have become memories that I genuinely treasure.
+
+I know I'm not perfect. I know I don't always express myself the way I should.
+
+But one thing I hope you never doubt is this:
+
+I care about you.
+
+And no matter how ordinary a day may seem, somehow having you in it makes it a little more special.
+
+So this isn't a huge promise or some dramatic speech.
+
+It's simply me telling you, in the simplest way I know:
+
+I'm really glad I met you.
+
+And I'm really glad that you're Rounak. ❤️
+`;
+
+    let typingStarted = false;
+
+    function startTyping() {
+
+      if (typingStarted) return;
+
+      typingStarted = true;
+
+      const element =
+        document.getElementById("typingText");
+
+      let index = 0;
+
+      function type() {
+
+        if (index < letterText.length) {
+
+          element.textContent +=
+            letterText.charAt(index);
+
+          index++;
+
+          setTimeout(type, 28);
+
+        }
+
+      }
+
+      type();
+    }
+
+
+    /* =========================
+       MUSIC
+    ========================= */
+
+    const music =
+      document.getElementById("music");
+
+    const musicBtn =
+      document.getElementById("musicBtn");
+
+    let musicPlaying = false;
+
+    function toggleMusic() {
+
+      if (!musicPlaying) {
+
+        music.play()
+          .then(() => {
+
+            musicPlaying = true;
+            musicBtn.textContent = "❚❚";
+
+          })
+          .catch(() => {
+
+            alert(
+              "Put an MP3 named 'music.mp3' in the same folder as this HTML file."
+            );
+
+          });
+
+      } else {
+
+        music.pause();
+
+        musicPlaying = false;
+
+        musicBtn.textContent = "♪";
+      }
+    }
+
+
+    /* =========================
+       RESTART
+    ========================= */
+
+    function restart() {
+
+      document.querySelectorAll(".screen")
+        .forEach(screen => {
+          screen.classList.remove("active");
+        });
+
+      document
+        .getElementById("screen1")
+        .classList.add("active");
+
+      document
+        .getElementById("envelope")
+        .classList.remove("open");
+
+      document
+        .getElementById("typingText")
+        .textContent = "";
+
+      typingStarted = false;
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
+
+  </script>
+
+</body>
+</html>
